@@ -19,10 +19,6 @@ import subprocess
 import sphinx_rtd_theme
 # sys.path.insert(0, os.path.abspath('.'))
 
-exclude_patterns = []
-highlight_language = 'c++'
-pygments_style = 'sphinx'
-todo_include_todos = False
 # -- Project information -----------------------------------------------------
 
 project = u'BFS & DFS'
@@ -98,7 +94,7 @@ language = None
 exclude_patterns = [u'_build', 'Thumbs.db', '.DS_Store', '../build/']
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = None
+pygments_style = 'sphinx'
 
 
 # -- Options for HTML output -------------------------------------------------
