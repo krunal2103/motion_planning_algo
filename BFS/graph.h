@@ -14,6 +14,11 @@ class Graph
     void DFS_impl(int s, bool visited[]);
 
   public:
+    /**
+     * @brief Construct a new Graph object
+     * 
+     * @param[in] V Number of vertices
+     */
     Graph(int V) : num_V(V)
     {
         list_data.resize(V);
