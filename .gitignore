@@ -4,3 +4,8 @@ build/
 */html/
 */latex/
 */.vscode/ipch/
+*/docs/api/
+*/docs/_build/
+*/docs/generated_docs/
+*/docs/_static/
+*/docs/_templates/
