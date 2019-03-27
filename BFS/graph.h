@@ -1,3 +1,6 @@
+#ifndef BFS_GRAPH_H_
+#define BFS_GRAPH_H_
+
 #include <iostream>
 #include <vector>
 #include <list>
@@ -21,3 +24,5 @@ class Graph
     void BFS(int s);
     void DFS(int s);
 };
+
+#endif // BFS_GRAPH_H_
