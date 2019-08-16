@@ -1,0 +1,12 @@
+language: cpp
+
+compiler: gcc
+
+os: linux
+dist: bionic
+
+script:
+  - mkdir BFS/build
+  - cd BFS/build
+  - cmake ..
+  - make
