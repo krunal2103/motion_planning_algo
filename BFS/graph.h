@@ -19,7 +19,7 @@ class Graph
      * 
      * @param V Number of vertices
      */
-    Graph(int V) : num_V(V)
+    explicit Graph(int V) : num_V(V)
     {
         list_data.resize(V);
     }
