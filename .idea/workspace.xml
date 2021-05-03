@@ -15,6 +15,7 @@
     <generated>
       <config projectName="Motion_Planning" targetName="bfs" />
       <config projectName="Motion_Planning" targetName="dijkstra" />
+      <config projectName="Motion_Planning" targetName="a_star" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -24,8 +25,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3afd4fa6-9feb-4e2a-abd0-d68bab71e666" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/a_star.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/a_star.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/a_star.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,6 +121,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="a_star" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Motion_Planning" TARGET_NAME="a_star" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Motion_Planning" RUN_TARGET_NAME="a_star">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="bfs" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Motion_Planning" TARGET_NAME="bfs" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Motion_Planning" RUN_TARGET_NAME="bfs">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -135,6 +142,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="CMake Application.a_star" />
       <item itemvalue="CMake Application.bfs" />
       <item itemvalue="CMake Application.dijkstra" />
     </list>
@@ -154,7 +162,7 @@
       <workItem from="1565980296558" duration="919000" />
       <workItem from="1565981493240" duration="7039000" />
       <workItem from="1619900633323" duration="6141000" />
-      <workItem from="1620052547166" duration="14649000" />
+      <workItem from="1620052547166" duration="14767000" />
     </task>
     <task id="LOCAL-00001" summary="Minor bugfixes">
       <created>1565986425360</created>

@@ -41,7 +41,7 @@ a_star(Graph<Location> graph, Location start, Location goal) {
         total_cost[next] = cost;
         double priority = cost + heuristic(next, goal);
         came_from[next] = current.second;
-        frontier.emplace(cost, next);
+        frontier.emplace(priority, next);
       }
     }
     draw_grid<GridLocation>(graph, &total_cost, nullptr, nullptr, &start, &goal);

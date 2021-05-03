@@ -8,3 +8,6 @@ add_executable(bfs src/bfs.cpp)
 
 # Dijkstra
 add_executable(dijkstra src/dijkstra.cpp)
+
+# Dijkstra
+add_executable(a_star src/a_star.cpp)
