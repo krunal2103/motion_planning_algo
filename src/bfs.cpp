@@ -1,8 +1,9 @@
-#include "utils.h"
+#include "../grid/square_grid.h"
+#include "../utils.h"
 
 #include <queue>
-#include <unordered_map>
 #include <thread>
+#include <unordered_map>
 
 template <typename Location, typename Graph>
 std::unordered_map<Location, Location> bfs(Graph graph, Location start,
@@ -26,7 +27,7 @@ std::unordered_map<Location, Location> bfs(Graph graph, Location start,
         came_from[next] = current;
       }
     }
-    draw_grid(graph, nullptr, &came_from, nullptr, &start, &goal);
+    draw_grid<GridLocation>(graph, nullptr, &came_from, nullptr, &start, &goal);
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
   }
   return came_from;
@@ -34,13 +35,13 @@ std::unordered_map<Location, Location> bfs(Graph graph, Location start,
 
 int main() {
 
-  auto grid = make_diagram1();
+  auto grid = make_diagram1<GridLocation, SquareGrid>();
   GridLocation start{10, 10};
   GridLocation goal{1, 1};
 
   auto arrows = bfs(grid, start, goal);
   auto path = generate_path(start, goal, arrows);
 
-  draw_grid(grid, nullptr, &arrows, &path, &start, &goal);
+  draw_grid<GridLocation>(grid, nullptr, &arrows, &path, &start, &goal);
   return 0;
 }
