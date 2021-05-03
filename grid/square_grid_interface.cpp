@@ -1,4 +1,4 @@
-#include "square_grid.h"
+#include "square_grid_interface.h"
 
 const std::array<GridLocation, 4> SquareGrid::moves_ = {
     /* East, West, North, South */

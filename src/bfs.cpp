@@ -1,4 +1,4 @@
-#include "../grid/square_grid.h"
+#include "../grid/square_grid_interface.h"
 #include "../utils.h"
 
 #include <queue>
