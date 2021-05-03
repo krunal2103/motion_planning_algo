@@ -24,15 +24,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3afd4fa6-9feb-4e2a-abd0-d68bab71e666" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/grid/grid_location.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/grid/square_grid_with_weights.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dijkstra.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/a_star.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grid/square_grid_interface.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/grid/square_grid_interface.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grid/square_grid_interface.h" beforeDir="false" afterPath="$PROJECT_DIR$/grid/square_grid_interface.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bfs.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/bfs.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils.h" beforeDir="false" afterPath="$PROJECT_DIR$/utils.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +154,7 @@
       <workItem from="1565980296558" duration="919000" />
       <workItem from="1565981493240" duration="7039000" />
       <workItem from="1619900633323" duration="6141000" />
-      <workItem from="1620052547166" duration="14431000" />
+      <workItem from="1620052547166" duration="14649000" />
     </task>
     <task id="LOCAL-00001" summary="Minor bugfixes">
       <created>1565986425360</created>
