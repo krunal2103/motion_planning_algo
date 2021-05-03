@@ -2,6 +2,7 @@
 
 #include <queue>
 #include <unordered_map>
+#include <thread>
 
 template <typename Location, typename Graph>
 std::unordered_map<Location, Location> bfs(Graph graph, Location start,
@@ -25,6 +26,8 @@ std::unordered_map<Location, Location> bfs(Graph graph, Location start,
         came_from[next] = current;
       }
     }
+    draw_grid(graph, nullptr, &came_from, nullptr, &start, &goal);
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
   }
   return came_from;
 }

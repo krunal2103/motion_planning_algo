@@ -123,6 +123,8 @@ void draw_grid(
     std::vector<GridLocation> *path = nullptr, GridLocation *start = nullptr,
     GridLocation *goal = nullptr) {
   const int field_width = 3;
+  printf("\033[2J");
+  printf("\033[%d;%dH", 0, 0);
   std::cout << std::string(field_width * graph.width() + 2 , '_') << '\n';
   for (int y = 0; y != graph.height(); ++y) {
     std::cout << "|";
