@@ -32,22 +32,6 @@ std::unordered_map<Location, Location> bfs(Graph graph, Location start,
   return came_from;
 }
 
-template <typename Location>
-std::vector<Location>
-generate_path(Location start, Location goal,
-              std::unordered_map<Location, Location> came_from) {
-  std::vector<Location> path;
-
-  auto current = goal;
-  while (current != start) {
-    path.push_back(current);
-    current = came_from[current];
-  }
-  path.push_back(start);
-  std::reverse(path.begin(), path.end());
-  return path;
-}
-
 int main() {
 
   auto grid = make_diagram1();
