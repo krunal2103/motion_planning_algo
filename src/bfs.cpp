@@ -1,3 +1,4 @@
+#include "../grid/grid_location.hpp"
 #include "../grid/square_grid_interface.h"
 #include "../utils.h"
 
@@ -5,8 +6,8 @@
 #include <thread>
 #include <unordered_map>
 
-template <typename Location, typename Graph>
-std::unordered_map<Location, Location> bfs(Graph graph, Location start,
+template <typename Location, template<typename L> typename Graph>
+std::unordered_map<Location, Location> bfs(Graph<Location> graph, Location start,
                                            Location goal) {
   std::queue<Location> frontier;
   frontier.push(start);
@@ -39,7 +40,7 @@ int main() {
   GridLocation start{10, 10};
   GridLocation goal{1, 1};
 
-  auto arrows = bfs(grid, start, goal);
+  auto arrows = bfs<GridLocation>(grid, start, goal);
   auto path = generate_path(start, goal, arrows);
 
   draw_grid<GridLocation>(grid, nullptr, &arrows, &path, &start, &goal);

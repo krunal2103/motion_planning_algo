@@ -22,9 +22,9 @@ constexpr char down[]   = "\u2193";
 // the distances, or pass in a point_to map if you want to print
 // arrows that point to the parent location, or pass in a path vector
 // if you want to draw the path.
-template <typename Location, typename Graph>
+template <typename Location, template<typename L> typename Graph>
 void draw_grid(
-    Graph &graph,
+    Graph<Location> &graph,
     std::unordered_map<Location, double> *distances = nullptr,
     std::unordered_map<Location, Location> *point_to = nullptr,
     std::vector<Location> *path = nullptr, Location *start = nullptr,
@@ -60,8 +60,8 @@ void draw_grid(
           std::cout << " * ";
         }
       } else if (distances != nullptr && distances->count(id)) {
-        std::cout << ' ' << std::left << std::setw(field_width - 1)
-                  << (*distances)[id];
+        std::cout << BLUE << ' ' << std::left << std::setw(field_width - 1)
+                  << (*distances)[id] << RESET;
       } else {
         std::cout << " . ";
       }
@@ -80,13 +80,30 @@ void add_rect(Graph &grid, int x1, int y1, int x2, int y2) {
   }
 }
 
-template<typename Location, typename Graph>
+template<typename Location, template<typename L> typename Graph>
 auto make_diagram1() {
-  Graph grid(30, 15);
+  Graph<Location> grid(30, 15);
   add_rect<Location>(grid, 3, 3, 5, 12);
   add_rect<Location>(grid, 13, 4, 15, 15);
   add_rect<Location>(grid, 21, 0, 23, 7);
   add_rect<Location>(grid, 23, 5, 26, 7);
+  return grid;
+}
+
+template<typename Location, template<typename L> typename Graph>
+auto make_diagram4() {
+  Graph<Location> grid(10, 10);
+  add_rect<Location, Graph<Location>>(grid, 1, 7, 4, 9);
+  typedef Location L;
+  grid.add_forests(std::unordered_set<Location> {
+      L{3, 4}, L{3, 5}, L{4, 1}, L{4, 2},
+      L{4, 3}, L{4, 4}, L{4, 5}, L{4, 6},
+      L{4, 7}, L{4, 8}, L{5, 1}, L{5, 2},
+      L{5, 3}, L{5, 4}, L{5, 5}, L{5, 6},
+      L{5, 7}, L{5, 8}, L{6, 2}, L{6, 3},
+      L{6, 4}, L{6, 5}, L{6, 6}, L{6, 7},
+      L{7, 3}, L{7, 4}, L{7, 5}
+  });
   return grid;
 }
 
