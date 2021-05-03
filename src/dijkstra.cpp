@@ -12,8 +12,7 @@ std::tuple<std::unordered_map<Location, Location>,
            std::unordered_map<Location, double>>
 dijsktra(Graph<Location> graph, Location start, Location goal) {
   typedef std::pair<double, Location> PQElement;
-  std::priority_queue<PQElement, std::vector<PQElement>,
-                      std::greater<PQElement>>
+  std::priority_queue<PQElement, std::vector<PQElement>, std::greater<>>
       frontier;
   frontier.push({0, start});
 
@@ -38,7 +37,8 @@ dijsktra(Graph<Location> graph, Location start, Location goal) {
         frontier.emplace(cost, next);
       }
     }
-    draw_grid<GridLocation>(graph, &total_cost, nullptr, nullptr, &start, &goal);
+    draw_grid<GridLocation>(graph, &total_cost, nullptr, nullptr, &start,
+                            &goal);
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
   }
   return {came_from, total_cost};

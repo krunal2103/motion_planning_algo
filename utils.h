@@ -8,15 +8,24 @@ constexpr char up[]     = "\u2191";
 constexpr char right[]  = "\u2192";
 constexpr char down[]   = "\u2193";
 
-#define BLACK "\x1b[1;30m"
-#define RED "\x1b[1;31m"
-#define GREEN "\x1b[1;32m"
-#define YELLOW "\x1b[1;33m"
-#define BLUE "\x1b[1;34m"
-#define MAGENTA "\x1b[1;35m"
-#define CYAN "\x1b[1;36m"
-#define WHITE "\x1b[1;37m"
+#define BLACK "\x1b[1;90m"
+#define RED "\x1b[1;91m"
+#define GREEN "\x1b[1;92m"
+#define YELLOW "\x1b[1;93m"
+#define BLUE "\x1b[1;94m"
+#define MAGENTA "\x1b[1;95m"
+#define CYAN "\x1b[1;96m"
+#define WHITE "\x1b[1;97m"
 #define RESET "\x1b[1;0m"
+
+#define BLACK_FG "\x1b[1;100m"
+#define RED_FG "\x1b[1;41m"
+#define GREEN_FG "\x1b[1;42m"
+#define YELLOW_FG "\x1b[1;43m"
+#define BLUE_FG "\x1b[1;44m"
+#define MAGENTA_FG "\x1b[1;45m"
+#define CYAN_FG "\x1b[1;46m"
+#define WHITE_FG "\x1b[1;47m"
 
 // This outputs a grid. Pass in a distances map if you want to print
 // the distances, or pass in a point_to map if you want to print
@@ -38,7 +47,7 @@ void draw_grid(
     for (int x = 0; x != graph.width(); ++x) {
       Location id{x, y};
       if (graph.is_wall(id)) {
-        std::cout << MAGENTA << std::string(field_width, '#') << RESET;
+        std::cout << MAGENTA_FG << std::string(field_width, ' ') << RESET;
       } else if (start && id == *start) {
         std::cout << RED << " A " << RESET;
       } else if (goal && id == *goal) {
@@ -48,6 +57,9 @@ void draw_grid(
         std::cout << GREEN << " @ " << RESET;
       } else if (point_to != nullptr && point_to->count(id)) {
         Location next = (*point_to)[id];
+        if (graph.is_forest(id)) {
+          std::cout << BLACK_FG;
+        }
         if (next.x == x + 1) {
           std::cout << BLUE << " " << right << " "  << RESET;
         } else if (next.x == x - 1) {
@@ -60,6 +72,9 @@ void draw_grid(
           std::cout << " * ";
         }
       } else if (distances != nullptr && distances->count(id)) {
+        if (graph.is_forest(id)) {
+          std::cout << BLACK_FG;
+        }
         std::cout << BLUE << ' ' << std::left << std::setw(field_width - 1)
                   << (*distances)[id] << RESET;
       } else {

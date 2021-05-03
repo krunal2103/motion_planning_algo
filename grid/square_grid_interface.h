@@ -45,6 +45,7 @@ public:
   int height() { return height_; }
 
   bool is_wall(Location id) { return walls_.find(id) != walls_.end(); }
+  virtual bool is_forest(Location id) { return false; }
 
 private:
   static const std::array<Location, 4> moves_;
