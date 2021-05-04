@@ -54,6 +54,9 @@ void draw_grid(
         std::cout << YELLOW << " Z " << RESET;
       } else if (path != nullptr &&
                  find(path->begin(), path->end(), id) != path->end()) {
+        if (graph.is_forest(id)) {
+          std::cout << BLACK_FG;
+        }
         std::cout << GREEN << " @ " << RESET;
       } else if (point_to != nullptr && point_to->count(id)) {
         Location next = (*point_to)[id];
@@ -78,7 +81,10 @@ void draw_grid(
         std::cout << BLUE << ' ' << std::left << std::setw(field_width - 1)
                   << (*distances)[id] << RESET;
       } else {
-        std::cout << " . ";
+        if (graph.is_forest(id)) {
+          std::cout << BLACK_FG;
+        }
+        std::cout << " . " << RESET;
       }
     }
     std::cout << "|\n";

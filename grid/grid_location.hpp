@@ -8,6 +8,7 @@
 
 struct GridLocation {
   int x, y;
+  int cost;
 };
 
 namespace std {
