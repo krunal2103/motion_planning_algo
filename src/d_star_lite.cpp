@@ -1,7 +1,7 @@
 #include "../grid/square_grid_with_weights.h"
 #include "../utils.h"
 
-#include "lpa_star.h"
+#include "d_star_lite.h"
 
 int main() {
 
@@ -9,11 +9,9 @@ int main() {
   GridLocation start{0, 8};
   GridLocation goal{7, 2};
 
-  draw_grid<GridLocation>(grid, nullptr, nullptr, nullptr, &start, &goal);
+  D_star_lite<GridLocation, SquareGridWithWeights> d_star_lite(grid, start, goal);
 
-  LPA_star<GridLocation, SquareGridWithWeights> lpa_star(grid, start, goal);
-
-  auto path = lpa_star();
+  auto path = d_star_lite();
 
   draw_grid<GridLocation>(grid, nullptr, nullptr, &path, &start, &goal);
   return 0;

@@ -24,12 +24,13 @@ public:
     }
   }
 
-  void operator()() {
+  auto operator()() {
     init();
     if (!std::is_heap(U_.begin(), U_.end(), KeyComparator<Location>())) {
       std::make_heap(U_.begin(), U_.end(), KeyComparator<Location>());
     }
     compute_shortest_path();
+    return generate_path();
   }
 
   std::vector<Location> generate_path() {
@@ -60,7 +61,7 @@ private:
       p.second = std::numeric_limits<double>::infinity();
     }
     S_[start_].second = 0;
-    U_.push_back({start_, calculate_key(start_)});
+    U_.push_back({start_, {heuristic(start_), 0}});
     std::make_heap(U_.begin(), U_.end(), KeyComparator<Location>());
   }
 

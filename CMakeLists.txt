@@ -14,3 +14,6 @@ add_executable(a_star src/a_star.cpp)
 
 # LPA star
 add_executable(lpa_star src/lpa_star.cpp)
+
+# D star lite
+add_executable(d_star_lite src/d_star_lite.cpp)
