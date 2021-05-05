@@ -19,7 +19,13 @@ public:
     return 0 <= id.x && id.x < width_ && 0 <= id.y && id.y < height_;
   }
 
-  bool passable(Location id) const { return walls_.find(id) == walls_.end(); }
+  bool passable(Location id) const {
+    for (auto const& polygon : walls_) {
+      auto it = std::find(polygon.begin(), polygon.end(), id);
+      if (it != polygon.end()) return false;
+    }
+    return true;
+  }
 
   std::vector<Location> neighbors(Location id) const {
     std::vector<Location> results;
@@ -39,18 +45,26 @@ public:
     return results;
   }
 
-  void add_wall(Location loc) { walls_.insert(loc); }
+  void add_wall(std::vector<Location> rect) { walls_.insert(rect); }
+
+  std::unordered_set<std::vector<Location>> get_obstacles() { return walls_; }
 
   int width() { return width_; }
   int height() { return height_; }
 
-  bool is_wall(Location id) { return walls_.find(id) != walls_.end(); }
+  bool is_wall(Location id) {
+    for (auto const& polygon : walls_) {
+      auto it = std::find(polygon.begin(), polygon.end(), id);
+      if (it != polygon.end()) return true;
+    }
+    return false;
+  }
   virtual bool is_forest(Location id) { return false; }
 
 private:
   static const std::array<Location, 4> moves_;
   int width_, height_;
-  std::unordered_set<Location> walls_;
+  std::unordered_set<std::vector<Location>> walls_;
 };
 
 template <typename Location>

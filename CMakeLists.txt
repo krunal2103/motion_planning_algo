@@ -17,3 +17,7 @@ add_executable(lpa_star src/lpa_star.cpp)
 
 # D star lite
 add_executable(d_star_lite src/d_star_lite.cpp)
+
+# RRT
+add_executable(rrt src/rrt.cpp)
+target_link_libraries(rrt sfml-graphics sfml-window sfml-system)
