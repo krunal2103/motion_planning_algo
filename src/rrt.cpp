@@ -2,18 +2,21 @@
 
 #include "rrt.h"
 
-#include "../graphics.hpp"
+#include "../grid/graphics.hpp"
 
 int main() {
   auto obstacles = make_diagram5<GridLocation<double>>();
   GridLocation<double> start{100, 70};
   GridLocation<double> goal{600, 400};
 
-  RRT<GridLocation<double>> rrt(obstacles, start, goal, RADIUS);
+  RRT<GridLocation<double>> rrt(obstacles, start, goal, RADIUS + 1);
 
   sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "RRT");
 
-  GridGraphics<GridLocation<double>> graphics(start, goal, obstacles);
+  GridGraphics<GridLocation<double>> graphics;
+  graphics.set_start(start);
+  graphics.set_goal(goal);
+  graphics.set_obstacles(obstacles);
 
   sf::Time delayTime = sf::milliseconds(5);
 

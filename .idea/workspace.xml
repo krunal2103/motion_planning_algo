@@ -27,7 +27,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3afd4fa6-9feb-4e2a-abd0-d68bab71e666" name="Default Changelist" comment="Minor bugfixes" />
+    <list default="true" id="3afd4fa6-9feb-4e2a-abd0-d68bab71e666" name="Default Changelist" comment="Minor bugfixes">
+      <change afterPath="$PROJECT_DIR$/grid/square_grid_graphics.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/graphics.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/grid/graphics.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rrt.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/rrt.cpp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -106,12 +112,12 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/grid" />
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.a_star">
+  <component name="RunManager" selected="CMake Application.rrt">
     <configuration name="a_star" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Motion_Planning" TARGET_NAME="a_star" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Motion_Planning" RUN_TARGET_NAME="a_star">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -175,6 +181,7 @@
       <workItem from="1620177840228" duration="6271000" />
       <workItem from="1620244822588" duration="5201000" />
       <workItem from="1620265251923" duration="9862000" />
+      <workItem from="1620327003781" duration="600000" />
     </task>
     <task id="LOCAL-00001" summary="Minor bugfixes">
       <created>1565986425360</created>
