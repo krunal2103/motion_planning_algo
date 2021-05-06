@@ -27,11 +27,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3afd4fa6-9feb-4e2a-abd0-d68bab71e666" name="Default Changelist" comment="Minor bugfixes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grid/grid_location.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/grid/grid_location.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils.h" beforeDir="false" afterPath="$PROJECT_DIR$/utils.h" afterDir="false" />
-    </list>
+    <list default="true" id="3afd4fa6-9feb-4e2a-abd0-d68bab71e666" name="Default Changelist" comment="Minor bugfixes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -115,7 +111,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.bfs">
+  <component name="RunManager" selected="CMake Application.a_star">
     <configuration name="a_star" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Motion_Planning" TARGET_NAME="a_star" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Motion_Planning" RUN_TARGET_NAME="a_star">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />

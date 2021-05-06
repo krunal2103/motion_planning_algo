@@ -127,19 +127,19 @@ auto make_diagram1() {
 template<typename Location, template<typename L> typename Graph>
 auto make_diagram4() {
   Graph<Location> grid(10, 10);
-//  add_rect<Location, Graph<Location>>(grid, 1, 7, 4, 9);
-//  add_rect<Location, Graph<Location>>(grid, 8, 5, 10, 6);
-//  typedef Location L;
-//  grid.add_forests(std::vector<Location> {
-//      L{3, 4}, L{3, 5}, L{4, 1}, L{4, 2},
-//      L{4, 3}, L{4, 4}, L{4, 5}, L{4, 6},
-//      L{4, 7}, L{4, 8}, L{5, 1}, L{5, 2},
-//      L{5, 3}, L{5, 4}, L{5, 5}, L{5, 6},
-//      L{5, 7}, L{5, 8}, L{6, 2}, L{6, 3},
-//      L{6, 4}, L{6, 5}, L{6, 6}, L{6, 7},
-//      L{7, 3}, L{7, 4}, L{7, 5}, L{4, 0},
-//      L{8, 5}, L{9, 5}
-//  });
+  add_rect<Location, Graph<Location>>(grid, 1, 7, 4, 9);
+  add_rect<Location, Graph<Location>>(grid, 8, 5, 10, 6);
+  typedef Location L;
+  grid.add_forests(std::vector<Location> {
+      L{3, 4}, L{3, 5}, L{4, 1}, L{4, 2},
+      L{4, 3}, L{4, 4}, L{4, 5}, L{4, 6},
+      L{4, 7}, L{4, 8}, L{5, 1}, L{5, 2},
+      L{5, 3}, L{5, 4}, L{5, 5}, L{5, 6},
+      L{5, 7}, L{5, 8}, L{6, 2}, L{6, 3},
+      L{6, 4}, L{6, 5}, L{6, 6}, L{6, 7},
+      L{7, 3}, L{7, 4}, L{7, 5}, L{4, 0},
+      L{8, 5}, L{9, 5}
+  });
   return grid;
 }
 
