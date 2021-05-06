@@ -92,46 +92,45 @@ void draw_grid(
   std::cout << std::string(field_width * graph.width() + 2, '~') << '\n';
 }
 
-template<typename Location, typename Graph>
-void add_rect(Graph &grid, int x1, int y1, int x2, int y2) {
-  std::vector<Location> rect;
-  for (int x = x1; x < x2; ++x) {
-    for (int y = y1; y < y2; ++y) {
-      rect.push_back(Location{x, y});
-    }
-  }
-  grid.add_wall(rect);
+//template<typename Location, typename Graph>
+//void add_rect(Graph &grid, int x1, int y1, int x2, int y2) {
+//  std::vector<Location> rect;
+//  for (int x = x1; x < x2; ++x) {
+//    for (int y = y1; y < y2; ++y) {
+//      rect.push_back(Location{x, y});
+//    }
+//  }
+//  grid.add_wall(rect);
+//}
+
+template<typename Location>
+void add_polygon(std::vector<Location> &polygon, Location l) {
+  polygon.push_back(l);
 }
 
-template<typename Location, typename Graph>
-void add_polygon(Graph &grid, std::vector<Location> &polygon, Location l) {
+template<typename Location, typename... Points>
+void add_polygon(std::vector<Location> &polygon, Location l, Points... points) {
   polygon.push_back(l);
-  grid.add_wall(polygon);
-}
-
-template<typename Location, typename Graph, typename... Points>
-void add_polygon(Graph &grid, std::vector<Location> &polygon, Location l, Points... points) {
-  polygon.push_back(l);
-  add_polygon(grid, polygon, points...);
+  add_polygon(polygon, points...);
 }
 
 template<typename Location, template<typename L> typename Graph>
 auto make_diagram1() {
   Graph<Location> grid(30, 15);
-  add_rect<Location>(grid, 3, 3, 5, 12);
-  add_rect<Location>(grid, 13, 4, 15, 15);
-  add_rect<Location>(grid, 21, 0, 23, 7);
-  add_rect<Location>(grid, 23, 5, 26, 7);
+//  add_rect<Location>(grid, 3, 3, 5, 12);
+//  add_rect<Location>(grid, 13, 4, 15, 15);
+//  add_rect<Location>(grid, 21, 0, 23, 7);
+//  add_rect<Location>(grid, 23, 5, 26, 7);
   return grid;
 }
 
 template<typename Location, template<typename L> typename Graph>
 auto make_diagram4() {
   Graph<Location> grid(10, 10);
-  add_rect<Location, Graph<Location>>(grid, 1, 7, 4, 9);
-  add_rect<Location, Graph<Location>>(grid, 8, 5, 10, 6);
+//  add_rect<Location, Graph<Location>>(grid, 1, 7, 4, 9);
+//  add_rect<Location, Graph<Location>>(grid, 8, 5, 10, 6);
 //  typedef Location L;
-//  grid.add_forests(std::unordered_set<Location> {
+//  grid.add_forests(std::vector<Location> {
 //      L{3, 4}, L{3, 5}, L{4, 1}, L{4, 2},
 //      L{4, 3}, L{4, 4}, L{4, 5}, L{4, 6},
 //      L{4, 7}, L{4, 8}, L{5, 1}, L{5, 2},
@@ -144,16 +143,21 @@ auto make_diagram4() {
   return grid;
 }
 
-template<typename Location, template<typename L> typename Graph>
+template<typename Location>
 auto make_diagram5() {
-  Graph<Location> grid(800, 600);
+//  Graph<Location> grid(800, 600);
   typedef Location L;
+  std::vector<std::vector<L>> obstacles;
   std::vector<Location> polygon;
-  add_polygon<Location>(grid, polygon, L{3, 3}, L{5, 12}, L{100, 500}, L{25, 325});
+  add_polygon<Location>(polygon, L{200, 480}, L{200, 100}, L{250, 100}, L{250, 480});
+  obstacles.push_back(polygon);
+  polygon.clear();
+  add_polygon<Location>(polygon, L{400, 0}, L{300, 100}, L{350, 250}, L{450, 250}, L{500, 100});
+  obstacles.push_back(polygon);
 //  add_rect<Location>(grid, 13, 4, 15, 15);
 //  add_rect<Location>(grid, 21, 0, 23, 7);
 //  add_rect<Location>(grid, 23, 5, 26, 7);
-  return grid;
+  return obstacles;
 }
 
 template <typename Location>

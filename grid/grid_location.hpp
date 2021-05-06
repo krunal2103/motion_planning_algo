@@ -1,16 +1,16 @@
 #ifndef GRID_LOCATION_HPP
 #define GRID_LOCATION_HPP
 
+#include <cmath>
 #include <iostream>
 #include <tuple>
 #include <vector>
-#include <cmath>
 
 #pragma once
 
 struct GridLocation {
-  int x, y;
-  int cost;
+  double x, y;
+  double cost;
 };
 
 namespace std {
@@ -18,25 +18,15 @@ namespace std {
 /* implement hash function so we can put GridLocation into an unordered_set */
 template <> struct hash<GridLocation> {
   std::size_t operator()(const GridLocation &id) const noexcept {
-    return std::hash<int>()(id.x ^ (id.y << 4));
-  }
-};
-
-template <> struct hash<std::vector<GridLocation>> {
-  std::size_t operator()(const std::vector<GridLocation> &v) const noexcept {
-    GridLocation id{0, 0};
-    for (auto const& l : v) {
-      id.x += l.x;
-      id.y += l.y;
-    }
-    return std::hash<int>()(id.x ^ (id.y << 4));
+    return std::hash<double>()(id.x + (id.y * 16));
   }
 };
 
 } // namespace std
 
 inline bool operator==(GridLocation a, GridLocation b) {
-  return a.x == b.x && a.y == b.y;
+  return (a.x - b.x) < std::numeric_limits<double>::epsilon() &&
+         (a.y - b.y) < std::numeric_limits<double>::epsilon();
 }
 
 inline bool operator!=(GridLocation a, GridLocation b) { return !(a == b); }
@@ -53,6 +43,10 @@ inline GridLocation operator-(GridLocation a, GridLocation b) {
   return {a.x - b.x, a.y - b.y};
 }
 
+inline GridLocation operator/(GridLocation a, double num) {
+  return {a.x / num, a.y / num};
+}
+
 inline std::basic_iostream<char>::basic_ostream &
 operator<<(std::basic_iostream<char>::basic_ostream &out,
            const GridLocation &loc) {
@@ -67,31 +61,35 @@ inline double distance(GridLocation a, GridLocation b) {
 }
 
 inline GridLocation steer(GridLocation a, GridLocation b, double delta) {
-  if (distance(a, b) > delta)
+  if ((distance(a, b) - delta) <= std::numeric_limits<double>::epsilon())
     return b;
   else {
     double theta = std::atan2(b.y - a.y, b.x - a.x);
-    return {int(a.x + delta * std::cos(theta)), int(a.y + delta * std::sin(theta))};
+    return {a.x + delta * std::cos(theta), a.y + delta * std::sin(theta)};
   }
 }
 
-inline int cross(GridLocation a, GridLocation b) {
+inline double dot(GridLocation a, GridLocation b) {
+  return a.x * b.x + a.y * b.y;
+}
+
+inline double cross(GridLocation a, GridLocation b) {
   return a.x * b.y - a.y * b.x;
 }
 
-inline int cross(GridLocation l, GridLocation a, GridLocation b) {
+inline double cross(GridLocation l, GridLocation a, GridLocation b) {
   return cross(a - l, b - l);
 }
 
-inline bool intersect_on_line(int a, int b, int c, int d) {
-  if ((a - b) > 0)
+inline bool intersect_on_line(double a, double b, double c, double d) {
+  if ((a - b) > std::numeric_limits<double>::epsilon())
     std::swap(a, b);
-  if ((c - d) > 0)
+  if ((c - d) > std::numeric_limits<double>::epsilon())
     std::swap(c, d);
   return std::max(a, c) <= std::max(b, d);
 }
 
-int sign(int x) { return x >= 0 ? x ? 1 : 0 : -1; }
+int sign(double x) { return x >= 0 ? x ? 1 : 0 : -1; }
 
 bool check_intersection(const GridLocation a, const GridLocation b,
                         const GridLocation c, const GridLocation d) {
@@ -107,8 +105,10 @@ bool line_segment_intersects_polygon(GridLocation a, GridLocation b,
                                      std::vector<GridLocation> polygon) {
   for (int i = 0; i < polygon.size(); i++) {
     int next = i + 1;
-    if (next == polygon.size()) next = 0;
-    if (check_intersection(a, b, polygon[i], polygon[next])) return true;
+    if (next == polygon.size())
+      next = 0;
+    if (check_intersection(a, b, polygon[i], polygon[next]))
+      return true;
   }
   return false;
 }

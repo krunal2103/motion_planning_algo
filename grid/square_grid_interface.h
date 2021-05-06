@@ -45,9 +45,9 @@ public:
     return results;
   }
 
-  void add_wall(std::vector<Location> rect) { walls_.insert(rect); }
+  void add_wall(std::vector<Location> rect) { walls_.push_back(rect); }
 
-  std::unordered_set<std::vector<Location>> get_obstacles() { return walls_; }
+  std::vector<std::vector<Location>> get_obstacles() { return walls_; }
 
   int width() { return width_; }
   int height() { return height_; }
@@ -64,7 +64,7 @@ public:
 private:
   static const std::array<Location, 4> moves_;
   int width_, height_;
-  std::unordered_set<std::vector<Location>> walls_;
+  std::vector<std::vector<Location>> walls_;
 };
 
 template <typename Location>
