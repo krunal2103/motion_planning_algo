@@ -33,9 +33,8 @@ public:
       nearest_index = 0;
       for (int i = 0; i < points_.size(); i++) {
         auto point = points_[i];
-        auto next = steer(point, new_point, random(0.3, 1.0) * jump_size_);
-        if ((distance(point, new_point) <=
-             distance(nearest_point, new_point)) &&
+        auto next = point.steer(new_point, random(0.3, 1.0) * jump_size_);
+        if ((point.distance(new_point) <= nearest_point.distance(new_point)) &&
             is_edge_obstacle_free(point, next)) {
           nearest_point = point;
           next_point = next;
@@ -78,8 +77,8 @@ private:
                        Location center_loc) {
     auto ac = center_loc - line_start;
     auto ab = line_end - line_start;
-    auto ab2 = dot(ab, ab);
-    auto acab = dot(ac, ab);
+    auto ab2 = ab.dot(ab);
+    auto acab = ac.dot(ab);
     auto t = acab / ab2;
 
     if (t < 0)
@@ -90,7 +89,7 @@ private:
     Location h;
     h.x = ((ab.x * t) + line_start.x) - center_loc.x;
     h.y = ((ab.y * t) + line_start.y) - center_loc.y;
-    auto h2 = dot(h, h);
+    auto h2 = h.dot(h);
     return (h2 <= (threshold_ * threshold_));
   }
 

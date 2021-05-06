@@ -42,7 +42,7 @@ a_star(Graph<Location> graph, Location start, Location goal) {
         frontier.emplace(priority, next);
       }
     }
-    draw_grid<GridLocation>(graph, &total_cost, nullptr, nullptr, &start,
+    draw_grid<Location>(graph, &total_cost, nullptr, nullptr, &start,
                             &goal);
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
   }
@@ -51,13 +51,13 @@ a_star(Graph<Location> graph, Location start, Location goal) {
 
 int main() {
 
-  auto grid = make_diagram4<GridLocation, SquareGridWithWeights>();
-  GridLocation start{1, 4};
-  GridLocation goal{8, 3};
+  auto grid = make_diagram4<GridLocation<int>, SquareGridWithWeights>();
+  GridLocation<int> start{1, 4};
+  GridLocation<int> goal{8, 3};
 
   auto [arrows, cost] = a_star(grid, start, goal);
   auto path = generate_path(start, goal, arrows);
 
-  draw_grid<GridLocation>(grid, nullptr, &arrows, &path, &start, &goal);
+  draw_grid<GridLocation<int>>(grid, nullptr, &arrows, &path, &start, &goal);
   return 0;
 }

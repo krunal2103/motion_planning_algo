@@ -5,16 +5,16 @@
 
 int main() {
 
-  auto grid = make_diagram4<GridLocation, SquareGridWithWeights>();
-  GridLocation start{0, 8};
-  GridLocation goal{7, 2};
+  auto grid = make_diagram4<GridLocation<int>, SquareGridWithWeights>();
+  GridLocation<int> start{0, 8};
+  GridLocation<int> goal{7, 2};
 
-  draw_grid<GridLocation>(grid, nullptr, nullptr, nullptr, &start, &goal);
+  draw_grid<GridLocation<int>>(grid, nullptr, nullptr, nullptr, &start, &goal);
 
-  LPA_star<GridLocation, SquareGridWithWeights> lpa_star(grid, start, goal);
+  LPA_star<GridLocation<int>, SquareGridWithWeights> lpa_star(grid, start, goal);
 
   auto path = lpa_star();
 
-  draw_grid<GridLocation>(grid, nullptr, nullptr, &path, &start, &goal);
+  draw_grid<GridLocation<int>>(grid, nullptr, nullptr, &path, &start, &goal);
   return 0;
 }

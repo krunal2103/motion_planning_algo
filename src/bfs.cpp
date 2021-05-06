@@ -28,7 +28,7 @@ std::unordered_map<Location, Location> bfs(Graph<Location> graph, Location start
         came_from[next] = current;
       }
     }
-    draw_grid<GridLocation>(graph, nullptr, &came_from, nullptr, &start, &goal);
+    draw_grid<Location>(graph, nullptr, &came_from, nullptr, &start, &goal);
     std::this_thread::sleep_for(std::chrono::milliseconds(50));
   }
   return came_from;
@@ -36,13 +36,13 @@ std::unordered_map<Location, Location> bfs(Graph<Location> graph, Location start
 
 int main() {
 
-  auto grid = make_diagram1<GridLocation, SquareGrid>();
-  GridLocation start{10, 10};
-  GridLocation goal{1, 1};
+  auto grid = make_diagram1<GridLocation<int>, SquareGrid>();
+  GridLocation<int> start{10, 10};
+  GridLocation<int> goal{1, 1};
 
-  auto arrows = bfs<GridLocation>(grid, start, goal);
+  auto arrows = bfs<GridLocation<int>>(grid, start, goal);
   auto path = generate_path(start, goal, arrows);
 
-  draw_grid<GridLocation>(grid, nullptr, &arrows, &path, &start, &goal);
+  draw_grid<GridLocation<int>>(grid, nullptr, &arrows, &path, &start, &goal);
   return 0;
 }

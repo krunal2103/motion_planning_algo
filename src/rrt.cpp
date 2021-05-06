@@ -5,20 +5,20 @@
 #include "../graphics.hpp"
 
 int main() {
-  auto obstacles = make_diagram5<GridLocation>();
-  GridLocation start{100, 70};
-  GridLocation goal{600, 400};
+  auto obstacles = make_diagram5<GridLocation<double>>();
+  GridLocation<double> start{100, 70};
+  GridLocation<double> goal{600, 400};
 
-  RRT<GridLocation> rrt(obstacles, start, goal, RADIUS);
+  RRT<GridLocation<double>> rrt(obstacles, start, goal, RADIUS);
 
   sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "RRT");
 
-  GridGraphics<GridLocation> graphics(start, goal, obstacles);
+  GridGraphics<GridLocation<double>> graphics(start, goal, obstacles);
 
   sf::Time delayTime = sf::milliseconds(5);
 
   while (window.isOpen()) {
-    sf::Event event;
+    sf::Event event{};
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed) {
         window.close();
