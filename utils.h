@@ -92,16 +92,16 @@ void draw_grid(
   std::cout << std::string(field_width * graph.width() + 2, '~') << '\n';
 }
 
-//template<typename Location, typename Graph>
-//void add_rect(Graph &grid, int x1, int y1, int x2, int y2) {
-//  std::vector<Location> rect;
-//  for (int x = x1; x < x2; ++x) {
-//    for (int y = y1; y < y2; ++y) {
-//      rect.push_back(Location{x, y});
-//    }
-//  }
-//  grid.add_wall(rect);
-//}
+template<typename Location, typename Graph>
+void add_rect(Graph &grid, int x1, int y1, int x2, int y2) {
+  std::vector<Location> rect;
+  for (int x = x1; x < x2; ++x) {
+    for (int y = y1; y < y2; ++y) {
+      rect.push_back(Location{x, y});
+    }
+  }
+  grid.add_wall(rect);
+}
 
 template<typename Location>
 void add_polygon(std::vector<Location> &polygon, Location l) {
@@ -117,10 +117,10 @@ void add_polygon(std::vector<Location> &polygon, Location l, Points... points) {
 template<typename Location, template<typename L> typename Graph>
 auto make_diagram1() {
   Graph<Location> grid(30, 15);
-//  add_rect<Location>(grid, 3, 3, 5, 12);
-//  add_rect<Location>(grid, 13, 4, 15, 15);
-//  add_rect<Location>(grid, 21, 0, 23, 7);
-//  add_rect<Location>(grid, 23, 5, 26, 7);
+  add_rect<Location>(grid, 3, 3, 5, 12);
+  add_rect<Location>(grid, 13, 4, 15, 15);
+  add_rect<Location>(grid, 21, 0, 23, 7);
+  add_rect<Location>(grid, 23, 5, 26, 7);
   return grid;
 }
 
