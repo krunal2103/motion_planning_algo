@@ -22,3 +22,7 @@ add_executable(d_star_lite src/d_star_lite.cpp)
 # RRT
 add_executable(rrt src/rrt.cpp)
 target_link_libraries(rrt sfml-graphics sfml-window sfml-system)
+
+# RRT star
+add_executable(rrt_star src/rrt_star.cpp)
+target_link_libraries(rrt_star sfml-graphics sfml-window sfml-system)

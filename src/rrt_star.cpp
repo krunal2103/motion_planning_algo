@@ -9,7 +9,7 @@ int main() {
   GridLocation<double> start{100, 70};
   GridLocation<double> goal{600, 400};
 
-  RRT<GridLocation<double>> rrt("RRT", obstacles, start, goal, RADIUS + 1);
+  RRT<GridLocation<double>> rrt_star("RRT*", obstacles, start, goal, RADIUS + 1);
 
   sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "RRT");
 
@@ -20,6 +20,7 @@ int main() {
 
   sf::Time delayTime = sf::milliseconds(5);
 
+  int i = 0;
   while (window.isOpen()) {
     sf::Event event{};
     while (window.pollEvent(event)) {
@@ -28,12 +29,19 @@ int main() {
         return 0;
       }
     }
-    if (!rrt.is_goal_reached())
-      rrt();
+    rrt_star();
+    i++;
+
+    if (i % 500 == 0) {
+      std::cout << "Iterations: " << i << std::endl;
+      if (!rrt_star.is_goal_reached()) std::cout << "Not reached!!!\n";
+      else std::cout << "Shortest distance: " << rrt_star.get_min_distance() << std::endl;
+    }
+
     sf::sleep(delayTime);
     window.clear();
-    graphics.draw(window, rrt.get_points(), rrt.get_parent(),
-                  rrt.is_goal_reached(), rrt.get_goal_index());
+    graphics.draw(window, rrt_star.get_points(), rrt_star.get_parent(),
+                  rrt_star.is_goal_reached(), rrt_star.get_goal_index());
     window.display();
   }
   return 0;

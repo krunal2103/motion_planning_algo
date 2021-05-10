@@ -3,9 +3,9 @@
 #include <unordered_set>
 #include <vector>
 
-const int WIDTH = 800 ;
-const int HEIGHT = 600 ;
-const int RADIUS = 5 ;
+constexpr int WIDTH = 800;
+constexpr int HEIGHT = 600;
+constexpr int RADIUS = 10;
 
 template <typename Location> class GridGraphics {
 public:
@@ -27,21 +27,25 @@ public:
     obstacles_.resize(obstacles.size());
     for (int i = 0; i < obstacles.size(); i++) {
       obstacles_[i].setPointCount(obstacles[i].size());
-      obstacles_[i].setFillColor(sf::Color(89, 87, 98));
+      obstacles_[i].setFillColor(sf::Color(102, 0, 51));
       for (int j = 0; j < obstacles[i].size(); j++) {
-        obstacles_[i].setPoint(j, sf::Vector2f(obstacles[i][j].x, obstacles[i][j].y));
+        obstacles_[i].setPoint(
+            j, sf::Vector2f(obstacles[i][j].x, obstacles[i][j].y));
       }
     }
   }
 
-  virtual void draw(sf::RenderWindow &window, const std::vector<Location> &nodes, std::vector<int> parent, bool path_found) {
+  virtual void draw(sf::RenderWindow &window,
+                    const std::vector<Location> &nodes, std::vector<int> parent,
+                    bool path_found, int goal_index) {
     sf::Vertex line[2];
 
     // Draw obstacles
-    for(auto& poly : obstacles_) window.draw(poly);
+    for (auto &poly : obstacles_)
+      window.draw(poly);
 
     // Draw edges between nodes
-    for(int i = nodes.size() - 1; i; i--) {
+    for (int i = nodes.size() - 1; i; i--) {
       Location par = nodes[parent[i]];
       line[0] = sf::Vertex(sf::Vector2f(par.x, par.y));
       line[1] = sf::Vertex(sf::Vector2f(nodes[i].x, nodes[i].y));
@@ -53,15 +57,15 @@ public:
     window.draw(goal_);
 
     // If destination is reached then path is retraced and drawn
-    if(path_found) {
-      auto node = nodes.size() - 1;
-      while(parent[node] != node) {
+    if (path_found) {
+      auto node = goal_index;
+      while (parent[node] != node) {
         int par = parent[node];
         line[0] = sf::Vertex(sf::Vector2f(nodes[par].x, nodes[par].y));
         line[1] = sf::Vertex(sf::Vector2f(nodes[node].x, nodes[node].y));
         line[0].color = line[1].color = sf::Color::Green;
         window.draw(line, 2, sf::Lines);
-        node = par ;
+        node = par;
       }
     }
   }

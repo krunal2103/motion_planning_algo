@@ -16,6 +16,7 @@
       <config projectName="Motion_Planning" targetName="lpa_star" />
       <config projectName="Motion_Planning" targetName="d_star_lite" />
       <config projectName="Motion_Planning" targetName="bfs" />
+      <config projectName="Motion_Planning" targetName="rrt_star" />
       <config projectName="Motion_Planning" targetName="dijkstra" />
       <config projectName="Motion_Planning" targetName="rrt" />
       <config projectName="Motion_Planning" targetName="a_star" />
@@ -28,11 +29,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3afd4fa6-9feb-4e2a-abd0-d68bab71e666" name="Default Changelist" comment="Minor bugfixes">
-      <change afterPath="$PROJECT_DIR$/grid/square_grid_graphics.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/rrt_star.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphics.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/grid/graphics.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grid/graphics.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/grid/graphics.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rrt.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/rrt.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rrt.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/rrt.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,9 +150,9 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="rrt_star" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Motion_Planning" TARGET_NAME="rrt_star" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Motion_Planning" RUN_TARGET_NAME="rrt_star">
       <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
@@ -160,6 +162,7 @@
       <item itemvalue="CMake Application.dijkstra" />
       <item itemvalue="CMake Application.lpa_star" />
       <item itemvalue="CMake Application.rrt" />
+      <item itemvalue="CMake Application.rrt_star" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -181,7 +184,8 @@
       <workItem from="1620177840228" duration="6271000" />
       <workItem from="1620244822588" duration="5201000" />
       <workItem from="1620265251923" duration="9862000" />
-      <workItem from="1620327003781" duration="600000" />
+      <workItem from="1620327003781" duration="7422000" />
+      <workItem from="1620672878142" duration="3187000" />
     </task>
     <task id="LOCAL-00001" summary="Minor bugfixes">
       <created>1565986425360</created>
