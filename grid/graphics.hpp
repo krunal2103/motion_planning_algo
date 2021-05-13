@@ -36,8 +36,8 @@ public:
   }
 
   virtual void draw(sf::RenderWindow &window,
-                    const std::vector<Location> &nodes, std::vector<int> parent,
-                    bool path_found, int goal_index) {
+                    const std::vector<Location> &nodes, bool path_found,
+                    int goal_index) {
     sf::Vertex line[2];
 
     // Draw obstacles
@@ -46,7 +46,7 @@ public:
 
     // Draw edges between nodes
     for (int i = nodes.size() - 1; i; i--) {
-      Location par = nodes[parent[i]];
+      Location par = nodes[nodes[i].parent];
       line[0] = sf::Vertex(sf::Vector2f(par.x, par.y));
       line[1] = sf::Vertex(sf::Vector2f(nodes[i].x, nodes[i].y));
       window.draw(line, 2, sf::Lines);
@@ -58,14 +58,15 @@ public:
 
     // If destination is reached then path is retraced and drawn
     if (path_found) {
-      auto node = goal_index;
-      while (parent[node] != node) {
-        int par = parent[node];
+      auto node_index = goal_index;
+      while (nodes[node_index].parent != node_index) {
+        int par = nodes[node_index].parent;
         line[0] = sf::Vertex(sf::Vector2f(nodes[par].x, nodes[par].y));
-        line[1] = sf::Vertex(sf::Vector2f(nodes[node].x, nodes[node].y));
+        line[1] =
+            sf::Vertex(sf::Vector2f(nodes[node_index].x, nodes[node_index].y));
         line[0].color = line[1].color = sf::Color::Green;
         window.draw(line, 2, sf::Lines);
-        node = par;
+        node_index = par;
       }
     }
   }

@@ -9,7 +9,8 @@ int main() {
   GridLocation<double> start{100, 70};
   GridLocation<double> goal{600, 400};
 
-  RRT<GridLocation<double>> rrt_star("RRT*", obstacles, start, goal, RADIUS + 1);
+  RRT<GridLocation<double>> rrt_star("RRT*", obstacles, RADIUS + 1);
+  rrt_star.init(start, goal);
 
   sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "RRT");
 
@@ -34,14 +35,18 @@ int main() {
 
     if (i % 500 == 0) {
       std::cout << "Iterations: " << i << std::endl;
-      if (!rrt_star.is_goal_reached()) std::cout << "Not reached!!!\n";
-      else std::cout << "Shortest distance: " << rrt_star.get_min_distance() << std::endl;
+      if (!rrt_star.is_destination_reached())
+        std::cout << "Not reached!!!\n";
+      else
+        std::cout << "Shortest distance: " << rrt_star.get_min_distance()
+                  << std::endl;
     }
 
     sf::sleep(delayTime);
     window.clear();
-    graphics.draw(window, rrt_star.get_points(), rrt_star.get_parent(),
-                  rrt_star.is_goal_reached(), rrt_star.get_goal_index());
+    graphics.draw(window, rrt_star.get_points(),
+                  rrt_star.is_destination_reached(),
+                  rrt_star.get_destination_index());
     window.display();
   }
   return 0;

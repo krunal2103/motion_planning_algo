@@ -9,7 +9,8 @@ int main() {
   GridLocation<double> start{100, 70};
   GridLocation<double> goal{600, 400};
 
-  RRT<GridLocation<double>> rrt("RRT", obstacles, start, goal, RADIUS + 1);
+  RRT<GridLocation<double>> rrt("RRT", obstacles, RADIUS + 1);
+  rrt.init(start, goal);
 
   sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "RRT");
 
@@ -28,12 +29,12 @@ int main() {
         return 0;
       }
     }
-    if (!rrt.is_goal_reached())
+    if (!rrt.is_destination_reached())
       rrt();
     sf::sleep(delayTime);
     window.clear();
-    graphics.draw(window, rrt.get_points(), rrt.get_parent(),
-                  rrt.is_goal_reached(), rrt.get_goal_index());
+    graphics.draw(window, rrt.get_points(), rrt.is_destination_reached(),
+                  rrt.get_destination_index());
     window.display();
   }
   return 0;

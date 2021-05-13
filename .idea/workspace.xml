@@ -29,12 +29,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3afd4fa6-9feb-4e2a-abd0-d68bab71e666" name="Default Changelist" comment="Minor bugfixes">
-      <change afterPath="$PROJECT_DIR$/src/rrt_star.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grid/graphics.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/grid/graphics.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grid/grid_location.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/grid/grid_location.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rrt.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/rrt.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rrt.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/rrt.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rrt_star.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/rrt_star.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +107,7 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Rapidly-Exploring-Random-Trees" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Apellix/Apellix-AP-ROS2/build" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="CMakeSettings" />
@@ -119,7 +119,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.rrt">
+  <component name="RunManager" selected="CMake Application.rrt_star">
     <configuration name="a_star" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Motion_Planning" TARGET_NAME="a_star" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Motion_Planning" RUN_TARGET_NAME="a_star">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -150,9 +150,14 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="rrt_star" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Motion_Planning" TARGET_NAME="rrt_star" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Motion_Planning" RUN_TARGET_NAME="rrt_star">
+    <configuration name="rrt_star" type="CMakeRunConfiguration" factoryName="Application" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Motion_Planning" TARGET_NAME="rrt_star" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Motion_Planning" RUN_TARGET_NAME="rrt_star">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
@@ -164,6 +169,11 @@
       <item itemvalue="CMake Application.rrt" />
       <item itemvalue="CMake Application.rrt_star" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="CMake Application.rrt_star" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -185,7 +195,9 @@
       <workItem from="1620244822588" duration="5201000" />
       <workItem from="1620265251923" duration="9862000" />
       <workItem from="1620327003781" duration="7422000" />
-      <workItem from="1620672878142" duration="3187000" />
+      <workItem from="1620672878142" duration="8329000" />
+      <workItem from="1620825765623" duration="480000" />
+      <workItem from="1620914358557" duration="3002000" />
     </task>
     <task id="LOCAL-00001" summary="Minor bugfixes">
       <created>1565986425360</created>

@@ -2,9 +2,10 @@
 
 #include <queue>
 #include <random>
-#include <unordered_map>
 #include <utility>
 #include <vector>
+
+constexpr double GOAL_SAMPLING_PROBABILITY = 0.05;
 
 double random(double low, double high) {
   std::random_device random_device;
@@ -16,13 +17,17 @@ double random(double low, double high) {
 template <typename Location> class RRT {
 public:
   RRT(std::string type, std::vector<std::vector<Location>> obstacles,
-      Location start, Location goal, int threshold)
-      : obstacles_(obstacles), start_(start), goal_(goal),
-        threshold_(threshold), type_(std::move(type)) {
+      int threshold)
+      : obstacles_(obstacles), threshold_(threshold), type_(std::move(type)),
+        destination_index_(0) {
     jump_size_ = (800 / 100.0 * 600 / 100.0) / 1.5;
-    points_.push_back(start_);
-    parent_.push_back(0);
-    cost_.push_back(0);
+  }
+
+  void init(Location root, Location destination) {
+    points_.push_back(root);
+    points_.back().cost = 0;
+    points_.back().parent = 0;
+    destination_ = destination;
   }
 
   void operator()() {
@@ -37,8 +42,8 @@ public:
       nearest_index = 0;
       for (int i = 0; i < points_.size(); i++) {
         if (path_found_ && random(0.0, 1.0) < 0.25) {
-          cost_[i] =
-              cost_[parent_[i]] + points_[parent_[i]].distance(points_[i]);
+          points_[i].cost = points_[points_[i].parent].cost +
+                            points_[points_[i].parent].distance(points_[i]);
         }
 
         auto point = points_[i];
@@ -56,10 +61,10 @@ public:
 
       if (type_ == "RRT") {
         updated = true;
+        next_point.parent = nearest_index;
+        next_point.cost =
+            points_[nearest_index].cost + nearest_point.distance(next_point);
         points_.push_back(next_point);
-        parent_.push_back(nearest_index);
-        cost_.push_back(cost_[nearest_index] +
-                        nearest_point.distance(next_point));
         if (!path_found_)
           check_if_destination_reached();
         continue;
@@ -74,17 +79,17 @@ public:
       }
 
       int p = nearest_index;
-      min_cost = cost_[p] + points_[p].distance(next_point);
+      min_cost = points_[p].cost + points_[p].distance(next_point);
       for (auto const &i : nearby_point_indices) {
-        if (((cost_[i] + points_[i].distance(next_point)) - min_cost) <=
+        if (((points_[i].cost + points_[i].distance(next_point)) - min_cost) <=
             std::numeric_limits<double>::epsilon()) {
-          min_cost = cost_[i] + points_[i].distance(next_point);
+          min_cost = points_[i].cost + points_[i].distance(next_point);
           p = i;
         }
       }
 
-      parent_.push_back(p);
-      cost_.push_back(min_cost);
+      next_point.cost = min_cost;
+      next_point.parent = p;
       points_.push_back(next_point);
       updated = true;
       if (!path_found_)
@@ -94,16 +99,16 @@ public:
   }
 
   auto get_points() { return points_; }
-  auto get_parent() { return parent_; }
-  auto is_goal_reached() { return path_found_; }
-  int get_goal_index() { return goal_index_; }
-  double get_min_distance() { return cost_[goal_index_]; }
+  auto is_destination_reached() { return path_found_; }
+  int get_destination_index() { return destination_index_; }
+  double get_min_distance() { return points_[destination_index_].cost; }
 
 private:
   Location sample_point() {
-    if ((random(0.0, 1.0) - 0.05) <= std::numeric_limits<double>::epsilon() &&
+    if ((random(0.0, 1.0) - GOAL_SAMPLING_PROBABILITY) <=
+            std::numeric_limits<double>::epsilon() &&
         !path_found_)
-      return goal_ + Location{5, 5};
+      return destination_ + Location{5, 5};
     return Location{random(0.0, 800), random(0.0, 600)};
   }
 
@@ -114,8 +119,8 @@ private:
     return true;
   }
 
-  bool check_near_goal(Location line_start, Location line_end,
-                       Location center_loc) {
+  bool check_near_location(Location line_start, Location line_end,
+                           Location center_loc) {
     auto ac = center_loc - line_start;
     auto ab = line_end - line_start;
     auto ab2 = ab.dot(ab);
@@ -135,11 +140,12 @@ private:
   }
 
   void check_if_destination_reached() {
-    if (check_near_goal(points_[parent_[points_.size() - 1]], points_.back(),
-                        goal_)) {
+    if (check_near_location(points_[points_.back().parent], points_.back(),
+                            destination_)) {
       path_found_ = true;
-      goal_index_ = points_.size() - 1;
-      std::cout << "Reached: " << "\tcost: " << cost_.back() << "\n";
+      destination_index_ = points_.size() - 1;
+      std::cout << "Reached: "
+                << "\tcost: " << points_.back().cost << "\n";
     }
   }
 
@@ -147,11 +153,11 @@ private:
     for (auto const &i : nearby) {
       int p = points_.size() - 1, cur = i;
 
-      while (((cost_[p] + points_[p].distance(points_[cur])) - cost_[cur]) <=
-             std::numeric_limits<double>::epsilon()) {
-        int p_old = parent_[cur];
-        parent_[cur] = p;
-        cost_[cur] = cost_[p] + points_[p].distance(points_[cur]);
+      while (((points_[p].cost + points_[p].distance(points_[cur])) -
+              points_[cur].cost) <= std::numeric_limits<double>::epsilon()) {
+        int p_old = points_[cur].parent;
+        points_[cur].parent = p;
+        points_[cur].cost = points_[p].cost + points_[p].distance(points_[cur]);
         p = cur;
         cur = p_old;
       }
@@ -159,13 +165,11 @@ private:
   }
 
   std::vector<std::vector<Location>> obstacles_;
-  Location start_, goal_;
+  Location destination_;
   std::vector<Location> points_;
-  std::vector<int> parent_;
-  std::vector<double> cost_;
   bool path_found_ = false;
   double jump_size_;
   int threshold_;
   std::string type_;
-  int goal_index_;
+  int destination_index_;
 };

@@ -42,7 +42,7 @@ public:
     }
   }
 
-  T x, y;
+  T x, y, parent;
   double cost;
 };
 
