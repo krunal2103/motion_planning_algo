@@ -6,7 +6,7 @@ os: linux
 dist: bionic
 
 before_install:
-  - sudo apt-get -y instal libsfml-dev
+  - sudo apt-get -y install libsfml-dev
 
 script:
   - mkdir build
