@@ -23,18 +23,24 @@ public:
     jump_size_ = (800 / 100.0 * 600 / 100.0) / 1.5;
   }
 
-  void init(Location root, Location destination) {
+  bool init(Location root, Location destination) {
+    for (auto const& obstacle : obstacles_) {
+      if (point_inside_polygon(root, obstacle) || point_inside_polygon(destination, obstacle)) {
+        return false;
+      }
+    }
     points_.push_back(root);
     points_.back().cost = 0;
     points_.back().parent_index = 0;
     destination_ = destination;
+    return true;
   }
 
   void operator()() {
     bool updated = false;
     Location next_point;
-    int nearest_index = 0;
-    double min_cost = std::numeric_limits<double>::infinity();
+    int nearest_index;
+    double min_cost;
     std::vector<int> nearby_point_indices;
     while (!updated) {
       auto new_point = sample_point();

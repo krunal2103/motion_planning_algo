@@ -5,7 +5,7 @@
 
 int main() {
 
-  auto grid = make_diagram4<GridLocation<int>, SquareGridWithWeights>();
+  auto grid = make_weighted_grid<GridLocation<int>, SquareGridWithWeights>();
   GridLocation<int> start{0, 8};
   GridLocation<int> goal{7, 2};
 

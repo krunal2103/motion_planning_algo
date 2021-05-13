@@ -5,12 +5,15 @@
 #include "../grid/graphics.hpp"
 
 int main() {
-  auto obstacles = make_diagram5<GridLocation<double>>();
+  auto obstacles = make_rrt_grid<GridLocation<double>>();
   GridLocation<double> start{100, 70};
   GridLocation<double> goal{600, 400};
 
   RRT<GridLocation<double>> rrt_star("RRT*", obstacles, RADIUS + 1);
-  rrt_star.init(start, goal);
+  if (!rrt_star.init(start, goal)) {
+    std::cout << "Start or gaol inside an obstacle!!!\n";
+    return -1;
+  }
 
   sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "RRT");
 

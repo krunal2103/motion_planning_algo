@@ -113,8 +113,26 @@ bool check_intersection(const GridLocation<T> a, const GridLocation<T> b,
 }
 
 template <typename T>
+bool point_inside_polygon(GridLocation<T> point,
+                          std::vector<GridLocation<T>> polygon) {
+  bool is_inside = false;
+  for (int i = 0, j = polygon.size() - 1; i < polygon.size(); j = i++) {
+    if (((polygon[i].y >= point.y) != (polygon[j].y >= point.y)) &&
+        (point.x <= (polygon[j].x - polygon[i].x) * (point.y - polygon[i].y) /
+                            (polygon[j].y - polygon[i].y) +
+                        polygon[i].x)) {
+      is_inside = !is_inside;
+    }
+  }
+  return is_inside;
+}
+
+template <typename T>
 bool line_segment_intersects_polygon(GridLocation<T> a, GridLocation<T> b,
                                      std::vector<GridLocation<T>> polygon) {
+  if (a.distance(b) <= std::numeric_limits<T>::epsilon()) {
+    return point_inside_polygon((a + b) / 2.0, polygon);
+  }
   for (int i = 0; i < polygon.size(); i++) {
     int next = i + 1;
     if (next == polygon.size())

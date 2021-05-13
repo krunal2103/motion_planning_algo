@@ -36,7 +36,7 @@ std::unordered_map<Location, Location> bfs(Graph<Location> graph, Location start
 
 int main() {
 
-  auto grid = make_diagram1<GridLocation<int>, SquareGrid>();
+  auto grid = make_grid<GridLocation<int>, SquareGrid>();
   GridLocation<int> start{10, 10};
   GridLocation<int> goal{1, 1};
 

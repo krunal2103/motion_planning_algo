@@ -51,7 +51,7 @@ a_star(Graph<Location> graph, Location start, Location goal) {
 
 int main() {
 
-  auto grid = make_diagram4<GridLocation<int>, SquareGridWithWeights>();
+  auto grid = make_weighted_grid<GridLocation<int>, SquareGridWithWeights>();
   GridLocation<int> start{1, 4};
   GridLocation<int> goal{8, 3};
 
