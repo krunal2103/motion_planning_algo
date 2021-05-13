@@ -42,7 +42,7 @@ public:
     }
   }
 
-  T x, y, parent;
+  T x, y, parent_index;
   double cost;
 };
 

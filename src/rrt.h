@@ -26,7 +26,7 @@ public:
   void init(Location root, Location destination) {
     points_.push_back(root);
     points_.back().cost = 0;
-    points_.back().parent = 0;
+    points_.back().parent_index = 0;
     destination_ = destination;
   }
 
@@ -42,8 +42,8 @@ public:
       nearest_index = 0;
       for (int i = 0; i < points_.size(); i++) {
         if (path_found_ && random(0.0, 1.0) < 0.25) {
-          points_[i].cost = points_[points_[i].parent].cost +
-                            points_[points_[i].parent].distance(points_[i]);
+          points_[i].cost = points_[points_[i].parent_index].cost +
+                            points_[points_[i].parent_index].distance(points_[i]);
         }
 
         auto point = points_[i];
@@ -61,7 +61,7 @@ public:
 
       if (type_ == "RRT") {
         updated = true;
-        next_point.parent = nearest_index;
+        next_point.parent_index = nearest_index;
         next_point.cost =
             points_[nearest_index].cost + nearest_point.distance(next_point);
         points_.push_back(next_point);
@@ -89,7 +89,7 @@ public:
       }
 
       next_point.cost = min_cost;
-      next_point.parent = p;
+      next_point.parent_index = p;
       points_.push_back(next_point);
       updated = true;
       if (!path_found_)
@@ -140,7 +140,7 @@ private:
   }
 
   void check_if_destination_reached() {
-    if (check_near_location(points_[points_.back().parent], points_.back(),
+    if (check_near_location(points_[points_.back().parent_index], points_.back(),
                             destination_)) {
       path_found_ = true;
       destination_index_ = points_.size() - 1;
@@ -155,8 +155,8 @@ private:
 
       while (((points_[p].cost + points_[p].distance(points_[cur])) -
               points_[cur].cost) <= std::numeric_limits<double>::epsilon()) {
-        int p_old = points_[cur].parent;
-        points_[cur].parent = p;
+        int p_old = points_[cur].parent_index;
+        points_[cur].parent_index = p;
         points_[cur].cost = points_[p].cost + points_[p].distance(points_[cur]);
         p = cur;
         cur = p_old;

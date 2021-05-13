@@ -46,7 +46,7 @@ public:
 
     // Draw edges between nodes
     for (int i = nodes.size() - 1; i; i--) {
-      Location par = nodes[nodes[i].parent];
+      Location par = nodes[nodes[i].parent_index];
       line[0] = sf::Vertex(sf::Vector2f(par.x, par.y));
       line[1] = sf::Vertex(sf::Vector2f(nodes[i].x, nodes[i].y));
       window.draw(line, 2, sf::Lines);
@@ -59,8 +59,8 @@ public:
     // If destination is reached then path is retraced and drawn
     if (path_found) {
       auto node_index = goal_index;
-      while (nodes[node_index].parent != node_index) {
-        int par = nodes[node_index].parent;
+      while (nodes[node_index].parent_index != node_index) {
+        int par = nodes[node_index].parent_index;
         line[0] = sf::Vertex(sf::Vector2f(nodes[par].x, nodes[par].y));
         line[1] =
             sf::Vertex(sf::Vector2f(nodes[node_index].x, nodes[node_index].y));
