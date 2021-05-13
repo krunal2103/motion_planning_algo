@@ -24,8 +24,9 @@ public:
   }
 
   bool init(Location root, Location destination) {
-    for (auto const& obstacle : obstacles_) {
-      if (point_inside_polygon(root, obstacle) || point_inside_polygon(destination, obstacle)) {
+    for (auto const &obstacle : obstacles_) {
+      if (point_inside_polygon(root, obstacle) ||
+          point_inside_polygon(destination, obstacle)) {
         return false;
       }
     }
@@ -39,28 +40,13 @@ public:
   void operator()() {
     bool updated = false;
     Location next_point;
-    int nearest_index;
     double min_cost;
     std::vector<int> nearby_point_indices;
     while (!updated) {
       auto new_point = sample_point();
-      auto nearest_point = points_[0];
-      nearest_index = 0;
-      for (int i = 0; i < points_.size(); i++) {
-        if (path_found_ && random(0.0, 1.0) < 0.25) {
-          points_[i].cost = points_[points_[i].parent_index].cost +
-                            points_[points_[i].parent_index].distance(points_[i]);
-        }
-
-        auto point = points_[i];
-        auto next = point.steer(new_point, random(0.3, 1.0) * jump_size_);
-        if ((point.distance(new_point) <= nearest_point.distance(new_point)) &&
-            is_edge_obstacle_free(point, next)) {
-          nearest_point = point;
-          next_point = next;
-          nearest_index = i;
-        }
-      }
+      // nearest_neighbor
+      auto [nearest_point, nearest_index] =
+          nearest_neighbor(new_point, next_point);
 
       if (!is_edge_obstacle_free(nearest_point, next_point))
         continue;
@@ -125,6 +111,27 @@ private:
     return true;
   }
 
+  std::tuple<Location, int> nearest_neighbor(Location new_point,
+                                             Location &next_point) {
+    int nearest_index;
+    auto nearest_point = points_[0];
+    for (int i = 0; i < points_.size(); i++) {
+      if (path_found_ && random(0.0, 1.0) < 0.25) {
+        points_[i].cost = points_[points_[i].parent_index].cost +
+                          points_[points_[i].parent_index].distance(points_[i]);
+      }
+      auto point = points_[i];
+      auto next = point.steer(new_point, random(0.3, 1.0) * jump_size_);
+      if ((point.distance(new_point) <= nearest_point.distance(new_point)) &&
+          is_edge_obstacle_free(point, next)) {
+        nearest_point = point;
+        next_point = next;
+        nearest_index = i;
+      }
+    }
+    return {nearest_point, nearest_index};
+  }
+
   bool check_near_location(Location line_start, Location line_end,
                            Location center_loc) {
     auto ac = center_loc - line_start;
@@ -146,8 +153,8 @@ private:
   }
 
   void check_if_destination_reached() {
-    if (check_near_location(points_[points_.back().parent_index], points_.back(),
-                            destination_)) {
+    if (check_near_location(points_[points_.back().parent_index],
+                            points_.back(), destination_)) {
       path_found_ = true;
       destination_index_ = points_.size() - 1;
       std::cout << "Reached: "
