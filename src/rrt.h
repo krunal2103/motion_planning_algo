@@ -38,55 +38,7 @@ public:
   }
 
   void operator()() {
-    bool updated = false;
-    Location next_point;
-    double min_cost;
-    std::vector<int> nearby_point_indices;
-    while (!updated) {
-      auto new_point = sample_point();
-      // nearest_neighbor
-      auto [nearest_point, nearest_index] =
-          nearest_neighbor(new_point, next_point);
-
-      if (!is_edge_obstacle_free(nearest_point, next_point))
-        continue;
-
-      if (type_ == "RRT") {
-        updated = true;
-        next_point.parent_index = nearest_index;
-        next_point.cost =
-            points_[nearest_index].cost + nearest_point.distance(next_point);
-        points_.push_back(next_point);
-        if (!path_found_)
-          check_if_destination_reached();
-        continue;
-      }
-
-      for (int i = 0; i < points_.size(); i++) {
-        if ((points_[i].distance(next_point) - jump_size_) <=
-                std::numeric_limits<double>::epsilon() &&
-            is_edge_obstacle_free(points_[i], next_point)) {
-          nearby_point_indices.push_back(i);
-        }
-      }
-
-      int p = nearest_index;
-      min_cost = points_[p].cost + points_[p].distance(next_point);
-      for (auto const &i : nearby_point_indices) {
-        if (((points_[i].cost + points_[i].distance(next_point)) - min_cost) <=
-            std::numeric_limits<double>::epsilon()) {
-          min_cost = points_[i].cost + points_[i].distance(next_point);
-          p = i;
-        }
-      }
-
-      next_point.cost = min_cost;
-      next_point.parent_index = p;
-      points_.push_back(next_point);
-      updated = true;
-      if (!path_found_)
-        check_if_destination_reached();
-      rewire(nearby_point_indices);
+    while (!extend(sample_point())) {
     }
   }
 
@@ -111,8 +63,7 @@ private:
     return true;
   }
 
-  std::tuple<Location, int> nearest_neighbor(Location new_point,
-                                             Location &next_point) {
+  std::tuple<Location, int> nearest_neighbor(Location new_point) {
     int nearest_index;
     auto nearest_point = points_[0];
     for (int i = 0; i < points_.size(); i++) {
@@ -125,11 +76,57 @@ private:
       if ((point.distance(new_point) <= nearest_point.distance(new_point)) &&
           is_edge_obstacle_free(point, next)) {
         nearest_point = point;
-        next_point = next;
+        next_point_ = next;
         nearest_index = i;
       }
     }
     return {nearest_point, nearest_index};
+  }
+
+  bool extend(Location new_point) {
+    // nearest_neighbor
+    auto [nearest_point, nearest_index] = nearest_neighbor(new_point);
+
+    if (!is_edge_obstacle_free(nearest_point, next_point_))
+      return false;
+
+    if (type_ == "RRT") {
+      next_point_.parent_index = nearest_index;
+      next_point_.cost =
+          points_[nearest_index].cost + nearest_point.distance(next_point_);
+      points_.push_back(next_point_);
+      if (!path_found_)
+        check_if_destination_reached();
+      return true;
+    }
+
+    std::vector<int> nearby_point_indices;
+
+    for (int i = 0; i < points_.size(); i++) {
+      if ((points_[i].distance(next_point_) - jump_size_) <=
+              std::numeric_limits<double>::epsilon() &&
+          is_edge_obstacle_free(points_[i], next_point_)) {
+        nearby_point_indices.push_back(i);
+      }
+    }
+
+    int p = nearest_index;
+    auto min_cost = points_[p].cost + points_[p].distance(next_point_);
+    for (auto const &i : nearby_point_indices) {
+      if (((points_[i].cost + points_[i].distance(next_point_)) - min_cost) <=
+          std::numeric_limits<double>::epsilon()) {
+        min_cost = points_[i].cost + points_[i].distance(next_point_);
+        p = i;
+      }
+    }
+
+    next_point_.cost = min_cost;
+    next_point_.parent_index = p;
+    points_.push_back(next_point_);
+    if (!path_found_)
+      check_if_destination_reached();
+    rewire(nearby_point_indices);
+    return true;
   }
 
   bool check_near_location(Location line_start, Location line_end,
@@ -185,4 +182,5 @@ private:
   int threshold_;
   std::string type_;
   int destination_index_;
+  Location next_point_;
 };
