@@ -5,8 +5,10 @@ compiler: gcc
 os: linux
 dist: bionic
 
+before_install:
+  - sudo apt-get -y instal libsfml-dev
+
 script:
-  - sudo apt-get instal libsfml-dev
   - mkdir build
   - cd build
   - cmake ..
