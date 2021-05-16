@@ -5,7 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 # BFS
 add_executable(bfs src/bfs.cpp)
-target_link_libraries(bfs sfml-graphics sfml-window sfml-system)
 
 # Dijkstra
 add_executable(dijkstra src/dijkstra.cpp)
