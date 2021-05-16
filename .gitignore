@@ -10,3 +10,8 @@ cmake-build-debug/
 */docs/generated_docs/
 */docs/_static/
 */docs/_templates/
+
+grid/square_grid_graphics.hpp
+
+
+.idea/*

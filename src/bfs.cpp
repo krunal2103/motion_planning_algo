@@ -1,6 +1,6 @@
 #include "../grid/grid_location.hpp"
 #include "../grid/square_grid_interface.h"
-#include "../utils.h"
+#include "../utils/utils.h"
 
 #include <queue>
 #include <thread>

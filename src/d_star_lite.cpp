@@ -1,5 +1,5 @@
 #include "../grid/square_grid_with_weights.h"
-#include "../utils.h"
+#include "../utils/utils.h"
 
 #include "d_star_lite.h"
 
